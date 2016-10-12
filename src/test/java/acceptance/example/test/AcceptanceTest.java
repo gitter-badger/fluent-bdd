@@ -18,13 +18,21 @@
 package acceptance.example.test;
 
 import io.github.theangrydev.yatspecfluent.FluentTest;
+import io.github.theangrydev.yatspecfluent.FluentTestState;
 import org.assertj.core.api.WithAssertions;
 import org.junit.After;
 import org.junit.Before;
 
-public abstract class AcceptanceTest<Request, Response> extends FluentTest<Request, Response> implements WithAssertions {
+public abstract class AcceptanceTest<Request, Response> implements FluentTest<Request, Response>, WithAssertions {
 
     protected final TestInfrastructure testInfrastructure = new TestInfrastructure();
+
+    private final FluentTestState<Response> fluentTestState = new FluentTestState<>();
+
+    @Override
+    public FluentTestState<Response> fluentTestState() {
+        return fluentTestState;
+    }
 
     @Before
     public void setUp() {
